@@ -1,0 +1,55 @@
+<div class="workspace-layout">
+    <div class="card upload-card">
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" id="fileInput" />
+        <label for="fileInput" class="dropzone">
+            <span>📸 Subir Radiografía de Tórax Digital</span>
+            <small>Formatos válidos: JPEG y PNG monocromáticos</small>
+        </label>
+    </div>
+
+    @if (errorMessage()) {
+    <div class="error-banner">
+        🛑 <strong>Muestra Rechazada:</strong> {{ errorMessage() }}
+    </div>
+    }
+
+    <div class="diagnostic-grid">
+        @if (imagePreview()) {
+        <div class="card viewer-card">
+            <div class="negatoscopio">
+                <img [src]="imagePreview()" [class.blur]="isLoading()" alt="Placa Rx" />
+                @if (isLoading()) {
+                <div class="laser-scanner"></div>
+                <div class="loader-txt">Procesando Tensores...</div>
+                }
+            </div>
+            <button (click)="evaluateImage()" [disabled]="isLoading()" class="btn-execute">
+                🧠 Iniciar Inferencia Neural
+            </button>
+        </div>
+        }
+
+        @if (predictions().length > 0) {
+        <div class="card results-card">
+            <h3>📋 Análisis Automatizado de Hallazgos:</h3>
+            <div class="metrics-list">
+                @for (item of predictions(); track item.pathology) {
+                <div class="metric-row">
+                    <div class="meta">
+                        <span>{{ item.pathology }}</span>
+                        <strong>{{ (item.probability * 100) | number:'1.1-1' }}%</strong>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" [style.width.%]="item.probability * 100"
+                            [class.red]="item.probability >= 0.7"
+                            [class.orange]="item.probability >= 0.3 && item.probability < 0.7"
+                            [class.green]="item.probability < 0.3">
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</div>

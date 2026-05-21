@@ -1,0 +1,30 @@
+# ==========================================
+# Exclusiones del Backend (Python / FastAPI)
+# ==========================================
+chexpert-backend/venv/
+chexpert-backend/**/__pycache__/
+chexpert-backend/**/*.pyc
+chexpert-backend/.pytest_cache/
+
+# CRÍTICO: No subir el archivo pesado del modelo (se comparte por enlace o Drive)
+chexpert-backend/**/*.h5
+
+# ==========================================
+# Exclusiones del Frontend (Angular 21)
+# ==========================================
+chexpert-frontend/node_modules/
+chexpert-frontend/.angular/
+chexpert-frontend/dist/
+chexpert-frontend/.tmp/
+
+# ==========================================
+# Exclusiones del IDE y Sistema Operativo
+# ==========================================
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+Thumbs.db

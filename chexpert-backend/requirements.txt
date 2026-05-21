@@ -1,0 +1,13 @@
+# ---- Framework Web y Servidor ----
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# ---- Inteligencia Artificial y Procesamiento de Tensores ----
+tensorflow>=2.15.0
+numpy>=1.26.0
+
+# ---- Procesamiento de Imágenes ----
+pillow>=10.2.0
+
+pydantic>=2.0.0

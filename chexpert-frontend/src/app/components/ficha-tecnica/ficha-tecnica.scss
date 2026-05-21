@@ -1,0 +1,72 @@
+.landing-hero {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.landing-hero h2 {
+    font-size: 3rem;
+    color: #1e293b;
+    margin: 1.5rem 0 1rem;
+    font-weight: 800;
+}
+
+.landing-hero p {
+    color: #64748b;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+.btn-primary {
+    background: #0f172a;
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #1e293b;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.spec-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.spec-card h3 {
+    color: #0f172a;
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.spec-card p {
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}

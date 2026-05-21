@@ -1,0 +1,9 @@
+<app-header (resetRequested)="navigateToHome()"></app-header>
+
+<main class="workspace-root">
+  @if (currentStage() === 'presentation') {
+  <app-ficha-tecnica (actionTriggered)="navigateToConsole()"></app-ficha-tecnica>
+  } @else {
+  <app-evaluador></app-evaluador>
+  }
+</main>
