@@ -25,3 +25,20 @@ Sigue estos pasos en la terminal integrada de tu IDE dentro del directorio `chex
 1. **Crear el entorno virtual aislado:**
    ```bash
    python3 -m venv venv
+
+2. **Activar el entorno virtual:**
+   ```bash
+   En Linux/macOS: source venv/bin/activate
+   En Windows (PowerShell): .\venv\Scripts\activate
+
+3. **Instalar dependencias del proyecto:**
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+
+4. **Colocación del Modelo:**
+   Asegúrate de que tu archivo de pesos chexpert_densenet121.h5 exportado de Google Colab se encuentre ubicado exactamente en la raíz de este directorio o dentro de la ruta definida en main.py.
+
+5. **Iniciar el servidor en modo desarrollo (Hot-Reload):**
+   ```bash
+   uvicorn app.main:app --reload --port 8000
