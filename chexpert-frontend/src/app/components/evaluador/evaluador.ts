@@ -11,13 +11,21 @@ import { Prediction } from '../../core/models/response/prediction.interface';
   styleUrl: './evaluador.scss'
 })
 export class Evaluador {
-  private diagnosticService = inject(DiagnosticService);
+  private readonly diagnosticService = inject(DiagnosticService);
 
   imagePreview = signal<string | null>(null);
   selectedFile = signal<File | null>(null);
   predictions = signal<Prediction[]>([]);
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
+  
+  // NUEVO: Signal reactivo para almacenar el género seleccionado
+  selectedGender = signal<string>('Masculino');
+
+  onGenderChanged(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedGender.set(selectElement.value);
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -41,7 +49,9 @@ export class Evaluador {
     this.errorMessage.set(null);
     this.predictions.set([]);
 
-    this.diagnosticService.uploadAndPredict(file).subscribe({
+    // Modificación de la llamada al servicio: 
+    // Recuerda actualizar la firma en diagnostic.service.ts para que reciba (file, genero)
+    this.diagnosticService.uploadAndPredict(file, this.selectedGender()).subscribe({
       next: (res) => {
         this.isLoading.set(false);
         if (res.success && res.predictions) {

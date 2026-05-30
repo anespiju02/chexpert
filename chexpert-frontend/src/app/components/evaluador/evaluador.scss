@@ -12,6 +12,41 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+// ==========================================
+// NUEVO: Estilos para el Selector de Género
+// ==========================================
+.gender-selector-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+
+    .gender-label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #1e3a8a; // Mismo color institucional que el span de la dropzone
+    }
+
+    .gender-select {
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        background-color: #f8fafc; // Mismo fondo que la dropzone
+        color: #0f172a;
+        font-size: 0.95rem;
+        font-weight: 500;
+        outline: none;
+        cursor: pointer;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+    }
+}
+
 .dropzone {
     display: flex;
     flex-direction: column;
@@ -21,16 +56,16 @@
     border-radius: 8px;
     cursor: pointer;
     background: #f8fafc;
-}
 
-.dropzone span {
-    font-weight: 700;
-    color: #1e3a8a;
-}
+    span {
+        font-weight: 700;
+        color: #1e3a8a;
+    }
 
-.dropzone small {
-    color: #64748b;
-    margin-top: 0.25rem;
+    small {
+        color: #64748b;
+        margin-top: 0.25rem;
+    }
 }
 
 #fileInput {
@@ -69,12 +104,12 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-}
 
-.negatoscopio img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
 }
 
 .blur {
@@ -95,7 +130,6 @@
     from {
         top: 0%;
     }
-
     to {
         top: 100%;
     }
@@ -119,16 +153,18 @@
     border-radius: 6px;
     margin-top: 1rem;
     cursor: pointer;
+
+    &:disabled {
+        background: #94a3b8;
+    }
 }
 
-.btn-execute:disabled {
-    background: #94a3b8;
-}
-
-.results-card h3 {
-    margin-top: 0;
-    font-size: 1.15rem;
-    color: #0f172a;
+.results-card {
+    h3 {
+        margin-top: 0;
+        font-size: 1.15rem;
+        color: #0f172a;
+    }
 }
 
 .metric-row {
