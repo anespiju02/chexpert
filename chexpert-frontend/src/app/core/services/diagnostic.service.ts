@@ -8,7 +8,7 @@ import { ApiResponse } from '../models/response/apiResponse.interface';
 })
 export class DiagnosticService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8000/predict';
+  private readonly apiUrl = 'http://localhost:8000/api/v1/predict';
 
   uploadAndPredict(file: File, generoEspanol: string): Observable<ApiResponse> {
     const formData = new FormData();

@@ -39,28 +39,37 @@
       </div>
     }
 
-    @if (predictions().length > 0) {
-      <div class="card results-card">
-        <h3>📋 Análisis Automatizado de Hallazgos:</h3>
-        <div class="metrics-list">
-          @for (item of predictions(); track item.pathology) {
-            <div class="metric-row">
-              <div class="meta">
-                <span>{{ item.pathology }}</span>
-                <strong>{{ (item.probability * 100) | number:'1.1-1' }}%</strong>
-              </div>
-              <div class="bar-bg">
-                <div class="bar-fill"
-                     [style.width.%]="item.probability * 100"
-                     [class.red]="item.probability >= 0.7"
-                     [class.orange]="item.probability >= 0.3 && item.probability < 0.7"
-                     [class.green]="item.probability < 0.3">
+@if (predictions().length > 0) {
+        <div class="card results-card">
+            <div class="results-header">
+                <h3>📋 Análisis Automatizado de Hallazgos:</h3>
+                
+                @if (processedMetadata()) {
+                <div class="metadata-badge">
+                    <span>🧬 Contexto Demográfico: <strong>{{ processedMetadata().genero_recibido === 'Male' ? 'Masculino' : 'Femenino' }}</strong></span>
+                    <small>Peso Tensor: ({{ processedMetadata().valor_numerico | number:'1.1-1' }})</small>
                 </div>
-              </div>
+                }
             </div>
-          }
+
+            <div class="metrics-list">
+                @for (item of predictions(); track item.pathology) {
+                <div class="metric-row">
+                    <div class="meta">
+                        <span>{{ item.pathology }}</span>
+                        <strong>{{ (item.probability * 100) | number:'1.1-1' }}%</strong>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" [style.width.%]="item.probability * 100"
+                            [class.red]="item.probability >= 0.7"
+                            [class.orange]="item.probability >= 0.3 && item.probability < 0.7"
+                            [class.green]="item.probability < 0.3">
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
         </div>
-      </div>
-    }
+        }
   </div>
 </div>

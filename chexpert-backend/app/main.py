@@ -32,7 +32,7 @@ def open_interceptor(file, *args, **kwargs):
 builtins.open = open_interceptor
 
 # Carga del modelo híbrido multimodal entrenado
-MODEL_PATH = "chexpert_multimodal_sex.h5"
+MODEL_PATH = "models/chexpert_multimodal_sex.h5"
 if os.path.exists(MODEL_PATH):
     model = tf.keras.models.load_model(MODEL_PATH)
     print("✅ Modelo Multimodal cargado exitosamente.")

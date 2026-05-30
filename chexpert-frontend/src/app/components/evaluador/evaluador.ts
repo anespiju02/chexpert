@@ -11,16 +11,17 @@ import { Prediction } from '../../core/models/response/prediction.interface';
   styleUrl: './evaluador.scss'
 })
 export class Evaluador {
-  private readonly diagnosticService = inject(DiagnosticService);
+  private diagnosticService = inject(DiagnosticService);
 
   imagePreview = signal<string | null>(null);
   selectedFile = signal<File | null>(null);
   predictions = signal<Prediction[]>([]);
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
+  selectedGender = signal<string>('Male');
   
-  // NUEVO: Signal reactivo para almacenar el género seleccionado
-  selectedGender = signal<string>('Masculino');
+  // NUEVO: Signal para almacenar el feedback de metadatos del backend
+  processedMetadata = signal<any>(null);
 
   onGenderChanged(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
@@ -34,6 +35,7 @@ export class Evaluador {
       this.selectedFile.set(file);
       this.errorMessage.set(null);
       this.predictions.set([]);
+      this.processedMetadata.set(null); // Limpiamos metadatos anteriores
 
       const reader = new FileReader();
       reader.onload = () => this.imagePreview.set(reader.result as string);
@@ -48,20 +50,36 @@ export class Evaluador {
     this.isLoading.set(true);
     this.errorMessage.set(null);
     this.predictions.set([]);
+    this.processedMetadata.set(null);
 
-    // Modificación de la llamada al servicio: 
-    // Recuerda actualizar la firma en diagnostic.service.ts para que reciba (file, genero)
     this.diagnosticService.uploadAndPredict(file, this.selectedGender()).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.isLoading.set(false);
-        if (res.success && res.predictions) {
-          this.predictions.set(res.predictions);
+        
+        // ADAPTACIÓN DEL JSON: Validamos que el estatus sea "success"
+        if (res && res.status === 'success' && res.predictions) {
+          
+          // Guardamos los metadatos de control (Género y valor numérico)
+          this.processedMetadata.set(res.metadata_procesada);
+
+          // MAPEADO DINÁMICO: Convertimos el objeto { "Cardiomegaly": 0.089, ... } en un Array []
+          const mappedPredictions: Prediction[] = Object.keys(res.predictions).map(key => ({
+            pathology: key,
+            probability: res.predictions[key]
+          }));
+
+          // Ordenamos las predicciones de mayor a menor probabilidad para el informe clínico
+          mappedPredictions.sort((a, b) => b.probability - a.probability);
+
+          // Asignamos el array formateado al Signal que alimenta el HTML
+          this.predictions.set(mappedPredictions);
+
         } else {
-          this.errorMessage.set(res.error || 'Error de validación analítica.');
+          this.errorMessage.set('La API no devolvió una estructura analítica válida.');
         }
       },
       error: () => {
-        this.errorMessage.set('Fallo de conexión con el nodo de inferencia Python.');
+        this.errorMessage.set('Fallo de comunicación con el nodo de inferencia Python.');
         this.isLoading.set(false);
       }
     });

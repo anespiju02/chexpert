@@ -165,6 +165,37 @@
         font-size: 1.15rem;
         color: #0f172a;
     }
+
+    // ==========================================
+    // NUEVO: Diseño del Badge de Metadatos
+    // ==========================================
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.25rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .metadata-badge {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1e40af;
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        small {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+    }
 }
 
 .metric-row {
